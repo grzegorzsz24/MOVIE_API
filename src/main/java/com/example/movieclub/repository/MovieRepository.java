@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findAllByPromotedIsTrue();
+    List<Movie> findAllByGenre_NameIgnoreCase(String genre);
 }
