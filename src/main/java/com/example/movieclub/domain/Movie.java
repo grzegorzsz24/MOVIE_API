@@ -21,4 +21,5 @@ public class Movie {
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
     private boolean promoted;
+    private String poster;
 }

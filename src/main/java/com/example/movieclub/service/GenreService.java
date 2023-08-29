@@ -1,8 +1,10 @@
 package com.example.movieclub.service;
 
+import com.example.movieclub.domain.Genre;
 import com.example.movieclub.dto.GenreDto;
 import com.example.movieclub.mapper.GenreDtoMapper;
 import com.example.movieclub.repository.GenreRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,14 @@ public class GenreService {
         return StreamSupport.stream(genreRepository.findAll().spliterator(), false)
                 .map(GenreDtoMapper::map)
                 .toList();
+    }
+
+    @Transactional
+    public Genre addGenre(GenreDto genreDto) {
+        Genre genreToSave = new Genre();
+        genreToSave.setName(genreDto.getName());
+        genreToSave.setDescription(genreDto.getDescription());
+        genreRepository.save(genreToSave);
+        return genreToSave;
     }
 }

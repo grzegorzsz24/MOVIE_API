@@ -18,4 +18,5 @@ public class MovieDto {
     private Integer releaseYear;
     private String genre;
     private boolean promoted;
+    private String poster;
 }
