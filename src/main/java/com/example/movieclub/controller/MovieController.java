@@ -28,4 +28,9 @@ public class MovieController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/top10")
+    public ResponseEntity<List<MovieDto>> findTop10() {
+        return ResponseEntity.ok(movieService.findTopMovies(10));
+    }
 }

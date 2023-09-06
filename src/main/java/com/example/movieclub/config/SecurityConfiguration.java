@@ -16,6 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
@@ -28,8 +29,8 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers(antMatcher("/api/auth/**"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()).disable())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(toH2Console(), antMatcher("/api/auth/**"))
                         .permitAll()
                         .anyRequest()
                         .authenticated())
@@ -37,7 +38,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults());
-
+        http.headers(h -> h.frameOptions(f -> f.disable()));
         return http.build();
     }
 

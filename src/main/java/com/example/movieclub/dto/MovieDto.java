@@ -1,6 +1,5 @@
 package com.example.movieclub.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,4 +18,6 @@ public class MovieDto {
     private String genre;
     private boolean promoted;
     private String poster;
+    private double avgRating;
+    private int ratingCount;
 }

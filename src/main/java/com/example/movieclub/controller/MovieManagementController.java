@@ -1,13 +1,15 @@
 package com.example.movieclub.controller;
 
-import com.example.movieclub.domain.Genre;
 import com.example.movieclub.domain.Movie;
 import com.example.movieclub.dto.MovieSaveDto;
 import com.example.movieclub.service.GenreService;
 import com.example.movieclub.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
