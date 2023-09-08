@@ -29,7 +29,7 @@ public class GenreController {
         return ResponseEntity.ok(movieService.findMoviesByGenreName(name));
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<GenreDto>> getGenreList() {
         return ResponseEntity.ok(genreService.findAllGenres());
     }

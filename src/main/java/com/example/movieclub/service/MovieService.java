@@ -3,12 +3,14 @@ package com.example.movieclub.service;
 import com.example.movieclub.domain.Genre;
 import com.example.movieclub.domain.Movie;
 import com.example.movieclub.dto.MovieDto;
+import com.example.movieclub.dto.MovieGenresDto;
 import com.example.movieclub.dto.MovieSaveDto;
 import com.example.movieclub.mapper.MovieDtoMapper;
 import com.example.movieclub.repository.GenreRepository;
 import com.example.movieclub.repository.MovieRepository;
 import com.example.movieclub.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
     private final FileStorageService fileStorageService;
+    private final MovieDtoMapper mapper;
 
     public List<MovieDto> findAllPromotedMovies() {
         return movieRepository.findAllByPromotedIsTrue().stream()
@@ -30,6 +33,9 @@ public class MovieService {
 
     public Optional<MovieDto> findMovieById(long id) {
         return movieRepository.findById(id).map(MovieDtoMapper::map);
+    }
+    public Optional<MovieGenresDto> findMovieDtoById(long id) {
+        return movieRepository.findById(id).map(MovieDtoMapper::mapToDto);
     }
 
     public List<MovieDto> findMoviesByGenreName(String genre) {
@@ -61,5 +67,14 @@ public class MovieService {
         return movieRepository.findTopByRating(page).stream()
                 .map(MovieDtoMapper::map)
                 .toList();
+    }
+
+    public void updateMovie(MovieGenresDto movieToUpdate) {
+        Movie movie = mapper.map(movieToUpdate);
+        movieRepository.save(movie);
+    }
+
+    public void deleteMovie(long id) {
+        movieRepository.deleteById(id);
     }
 }
