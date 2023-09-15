@@ -20,4 +20,9 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+
+    @GetMapping("/confirm")
+    public ResponseEntity<?> confirm(@RequestParam String token) {
+        return ResponseEntity.ok(authenticationService.confirmToken(token));
+    }
 }

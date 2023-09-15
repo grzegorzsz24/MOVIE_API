@@ -27,6 +27,8 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+    private Boolean locked;
+    private Boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -59,7 +61,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -69,6 +71,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
