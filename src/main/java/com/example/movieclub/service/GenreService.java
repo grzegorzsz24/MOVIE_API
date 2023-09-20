@@ -7,6 +7,8 @@ import com.example.movieclub.mapper.GenreDtoMapper;
 import com.example.movieclub.repository.GenreRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

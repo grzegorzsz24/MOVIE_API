@@ -42,6 +42,7 @@ public class AuthenticationService {
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .enabled(false)
+                .locked(false)
                 .roles(Set.of())
                 .build();
         userRepository.save(user);
@@ -55,11 +56,11 @@ public class AuthenticationService {
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        String link = "http://localhost:8090/api/v1/registration/confirm?token=" + confirmationToken;
+        String link = "http://localhost:8090/api/auth/confirm?token=" + confirmationToken;
         emailSender.send(registerRequest.getEmail(), buildEmail(registerRequest.getFirstName(), link));
 
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).confToken(confirmationToken.getToken()).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
